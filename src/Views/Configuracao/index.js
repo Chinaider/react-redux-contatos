@@ -3,6 +3,9 @@ import { Container, Content, Card, CardItem, Left, Icon, Body, Text, Button, Vie
 import Topo from '../../Components/Topo';
 import style from './style';
 
+import { connect } from 'react-redux';
+import { setColor } from '../../Modules/Configuracao/action';
+
 const colors = [
     {color:'#d32f2f',textColor:'#ffffff'},
     {color:'#f57c00', textColor:'#000000'},
@@ -12,22 +15,17 @@ const colors = [
     {color:'#1565c0', textColor:'#ffffff'}
 ];
 
-export default class Configuracao extends Component{
+class Configuracao extends Component{
 
     constructor(props){
         super(props);
-        this.state = {color:'#1565c0', textColor:'#ffffff'};
-    }
-
-    setColor(objColor){
-        this.setState(objColor.item);
     }
 
     render(){
 
         const ColorItem = (props) => {
             return (
-                <Button onPress={() => this.setColor(props)} style={style.boxColorBtn} transparent>
+                <Button onPress={() => this.props.setColor(props.item)} style={[style.boxColorBtn,this.props.color == props.item.color ? {borderWidth: 2, borderColor: '#a9a9a9'} : {}]} transparent>
                     <View style={[style.boxColor,{ backgroundColor: props.item.color}]}></View>
                 </Button>
             );
@@ -35,7 +33,7 @@ export default class Configuracao extends Component{
 
         return (
             <Container>
-                <Topo color={this.state.color} textColor={this.state.textColor} navigation={this.props.navigation} titulo='Configuração' hiddenBtnConfig={true} hiddenBtnAdd={true} />
+                <Topo navigation={this.props.navigation} titulo='Configuração' hiddenBtnConfig={true} hiddenBtnAdd={true} />
                 <Content>
                     <Card style={style.card}>
                         <CardItem>
@@ -43,7 +41,7 @@ export default class Configuracao extends Component{
                                 <Icon style={style.icon} name='md-color-filter'/>
                                 <Body>
                                     <Text>Cores</Text>
-                                    <Text note> Cores da header e fontes.</Text>
+                                    <Text note> Cabeçalho e fontes.</Text>
                                 </Body>
                             </Left>
                         </CardItem>
@@ -56,3 +54,13 @@ export default class Configuracao extends Component{
         );
     }
 }
+
+const mapStateToProps = state => ({
+    loading: state.ConfiguracaoReducer.loading,
+    color: state.ConfiguracaoReducer.color,
+    textColor: state.ConfiguracaoReducer.textColor
+});
+
+Configuracao = connect(mapStateToProps,{setColor})(Configuracao);
+
+export default Configuracao;

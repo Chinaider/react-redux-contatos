@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import { Header, Title, Right, Left , Body, Button, Icon } from 'native-base';
 import { connect } from 'react-redux';
+import { setColor } from '../../Modules/Configuracao/action';
 
 class Topo extends Component{
 
     botaoAdd(){
         return (!this.props.hiddenBtnAdd) ?  (
             <Button transparent>
-                <Icon name='add'/>
+                <Icon style={{color: this.props.textColor}} name='add'/>
             </Button>
         ) : null;
     }
@@ -15,7 +16,7 @@ class Topo extends Component{
     botaoConfig(){
         return (!this.props.hiddenBtnConfig) ? (
             <Button onPress={() => this.props.navigation.navigate('Configuracao')} transparent>
-                <Icon name='settings'/>
+                <Icon style={{color: this.props.textColor}} name='settings'/>
             </Button>
         ) : null;
     }
@@ -24,7 +25,7 @@ class Topo extends Component{
         return (this.props.navigation.state.routeName !== "Lista") ? (
             <Left>
                 <Button onPress={() => this.props.navigation.goBack()} transparent>
-                    <Icon name='md-arrow-back'/>
+                    <Icon style={{color: this.props.textColor}} name='md-arrow-back'/>
                 </Button>
             </Left>    
         ) : null;
@@ -32,10 +33,10 @@ class Topo extends Component{
 
     render(){
         return (
-            <Header androidStatusBarColor={this.props.color} style={{backgroundColor:this.props.color,color: this.props.textColor}}>
+            <Header androidStatusBarColor={this.props.color} style={{backgroundColor:this.props.color}}>
                    {this.botaoGoBack()} 
                 <Body>
-                    <Title>{  this.props.titulo }</Title>
+                    <Title style={{color: this.props.textColor}}>{  this.props.titulo }</Title>
                 </Body>
                 <Right>
                     {this.botaoAdd()}
@@ -54,6 +55,6 @@ const mapStateToProps = state => ({
 });
 
 
-Topo = connect(mapStateToProps,null)(Topo);
+Topo = connect(mapStateToProps,{})(Topo);
 
 export default Topo;
