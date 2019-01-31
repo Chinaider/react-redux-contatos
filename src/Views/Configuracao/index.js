@@ -49,6 +49,11 @@ class Configuracao extends Component{
                             {colors.map((item,index) => <ColorItem key={index} item={item} /> )}
                         </CardItem>
                     </Card>
+                    <Body style={style.botaoSalvar}>
+                        <Button style={{backgroundColor:this.props.color}} >
+                            <Text>Salvar</Text>
+                        </Button>
+                    </Body>
                 </Content>
             </Container>   
         );

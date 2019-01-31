@@ -22,5 +22,10 @@ export default style = StyleSheet.create({
         backgroundColor: 'red',
         borderWidth: 1,
         borderColor: '#d6d7da',
+    },
+    botaoSalvar:{
+        marginTop:20,
+        justifyContent:'center',
+        flexDirection: 'row'
     }
 });
