@@ -1,4 +1,5 @@
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import ReduxThunk from 'redux-thunk';
 import ConfiguracaoReducer from './../Modules/Configuracao/reducer';
 
 export default configureStore = () => {
@@ -7,7 +8,7 @@ export default configureStore = () => {
         ConfiguracaoReducer: ConfiguracaoReducer
     });
 
-    const store = createStore(reducers);
+    const store = createStore(reducers,{},applyMiddleware(ReduxThunk));
 
     return store;
 };
